@@ -69,6 +69,19 @@ const useStyles = makeStyles(theme => ({
     },
     title: {
         textTransform: 'capitalize'
+    },
+    indicatorRoot: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    indicators: {
+        width: '10px',
+        height: '10px',
+        borderRadius: '1em',
+        margin: theme.spacing(5, 1),
+        transition: 'all 0.7s ease'
     }
 }))
 
@@ -108,6 +121,24 @@ export function Frame(props) {
         <div className={classes.root}>
             <ArticleSlideFrameImage />
             <ArticleSlideFrameInfo />
+        </div>
+    )
+}
+
+export function SlideIndicator(props) {
+    const { children, value, index, ...other } = props;
+    const classes = useStyles();
+    const theme = useTheme();
+
+    return (
+        <div
+            role="slideIndicator"
+            id={`slide-indicator-${index}`}
+            aria-labelledby={`slide-indicator-for-slide-${index}`}
+            className={classes.indicators}
+            style={(index === value) ? ({ backgroundColor: 'black' }) : ({ backgroundColor: theme.palette.grey[400] })}
+            {...other}>
+            {children}
         </div>
     )
 }
@@ -167,6 +198,15 @@ export default function SlideShow(props) {
     const [value, setValue] = React.useState(0);
     const [loaded, setLoaded] = React.useState([0,])
 
+
+    const handleChoose = (event, slideNum) => {
+        if (!loaded.includes(slideNum)) {
+            const newLoaded = [...loaded, slideNum]
+            setLoaded(newLoaded)
+        }
+        setValue(slideNum);
+    }
+
     const handleNext = (event) => {
         const newValue = (value >= props.data.length - 1) ? (
             0
@@ -223,35 +263,49 @@ export default function SlideShow(props) {
             )
         })
     ) : ([])
+
+    const pagination = props.data ? (
+        props.data.map(frame => {
+            return (
+                <SlideIndicator key={frame.id}
+                    value={value}
+                    index={props.data.indexOf(frame)}
+                    onClick={(event) => { handleChoose(event, props.data.indexOf(frame)) }} />
+            )
+        })
+    ) : ([])
     return (
-        <Grid container alignContent='center' className={classes.root}>
-            <Grid item xs={12} >
-                <AutoPlaySwipeableViews
-                    disableLazyLoading={false}
-                    axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                    index={value}
-                    onChangeIndex={handleChangeIndex}
-                    interval={5000}>
-                    {imageList}
-                </AutoPlaySwipeableViews>
-            </Grid>
-            <Grid item xs={12}>
-                {infoList}
-            </Grid>
-            <Grid className={classes.controls} item xs={12} >
-                <div className={classes.back}>
-                    <IconButton onClick={handlePrev}>
-                        <ArrowBack fontSize='large' />
-                    </IconButton>
-                </div>
-                <div className={classes.forward}>
-                    <IconButton onClick={handleNext}>
-                        <ArrowForward fontSize='large' />
-                    </IconButton>
-                </div>
+        <>
+            <Grid container alignContent='center' className={classes.root}>
+                <Grid item xs={12} >
+                    <AutoPlaySwipeableViews
+                        disableLazyLoading={false}
+                        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                        index={value}
+                        onChangeIndex={handleChangeIndex}
+                        interval={7000}>
+                        {imageList}
+                    </AutoPlaySwipeableViews>
+                </Grid>
+                <Grid item xs={12}>
+                    {infoList}
+                </Grid>
+                <Grid className={classes.controls} item xs={12} >
+                    <div className={classes.back}>
+                        <IconButton onClick={handlePrev}>
+                            <ArrowBack fontSize='large' />
+                        </IconButton>
+                    </div>
+                    <div className={classes.forward}>
+                        <IconButton onClick={handleNext}>
+                            <ArrowForward fontSize='large' />
+                        </IconButton>
+                    </div>
 
 
+                </Grid>
             </Grid>
-        </Grid>
+            <div className={classes.indicatorRoot}>{pagination}</div>
+        </>
     )
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import Link from 'next/link';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core';
 import FaceIcon from '@material-ui/icons/Face';
 import WcIcon from '@material-ui/icons/Wc';
 import SportsKabaddiIcon from '@material-ui/icons/SportsKabaddi';
@@ -60,18 +60,18 @@ const IconChooser = (title) => {
 const useStyles = makeStyles(theme => ({
     root: {
 
-        padding: theme.spacing(6, 6),
+        padding: theme.spacing(6, 9),
         [theme.breakpoints.down('xs')]: {
             padding: theme.spacing(6, 2)
         },
         borderBottomStyle: 'solid',
         borderBottomColor: 'rgba(0, 0, 0, 0.4)',
-        borderBottomWidth: '1px'
+        borderBottomWidth: '1px',
     },
     infoRoot: {
-        background: 'linear-gradient(transparent, rgba(0, 0, 0, 0.9))',
+        background: 'linear-gradient(transparent, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7))',
         textAlign: 'center',
-        textShadow: '2px 2px 8px rgba(0, 0, 0, 0.9)',
+        textShadow: '2px 2px 8px rgba(0, 0, 0, 0.6)',
         width: '100%',
         padding: theme.spacing(5),
         [theme.breakpoints.up('md')]: {
@@ -85,6 +85,9 @@ const useStyles = makeStyles(theme => ({
     categoryTitle: {
         width: '100%',
         marginBottom: theme.spacing(6),
+        [theme.breakpoints.down('xs')]: {
+            textAlign: 'center'
+        }
     },
     mainBack: {
         display: 'block',
@@ -108,7 +111,7 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'flex-end',
         overflow: 'hidden',
 
-        margin: theme.spacing(0, -6),
+        margin: theme.spacing(0, -9),
         [theme.breakpoints.down('md')]: {
             height: '55vh'
         },
@@ -143,6 +146,8 @@ const useStyles = makeStyles(theme => ({
     secondMainRoot: {
         minHeight: '50vh',
         textTransform: 'capitalize',
+        borderRadius: '1%',
+        backgroundColor: 'white',
         [theme.breakpoints.down('md')]: {
 
             minHeight: '27vh'
@@ -153,7 +158,6 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.down('xs')]: {
             minHeight: '37vh',
         },
-        boxShadow: '0 3px 3px -2px rgba(0, 0, 0, 0.4)',
 
         '&:hover main': {
             transform: 'scale(1.2)'
@@ -167,7 +171,13 @@ const useStyles = makeStyles(theme => ({
         display: 'block',
         padding: '0%',
         margin: '0%',
-        minHeight: '30vh',
+        minHeight: '40vh',
+        [theme.breakpoints.down('md')]: {
+            minHeight: '20vh',
+        },
+        [theme.breakpoints.down('xs')]: {
+            minHeight: '25vh',
+        },
         width: '100%',
         backgroundRepeat: 'no-repeat',
         backgroundColor:
@@ -181,22 +191,27 @@ const useStyles = makeStyles(theme => ({
         overflow: 'hidden'
     },
     secondMainInfo: {
-        padding: theme.spacing(1),
-        minHeight: '15vh',
+        padding: theme.spacing(4, 2),
+        minHeight: '12vh',
         transition: 'all 0.7s ease'
     },
     thirdMainRoot: {
         width: '100%',
-        borderLeftStyle: 'solid',
-        borderLeftColor: theme.palette.primary.main,
-        borderLeftWidth: '0.2em',
+        borderRightStyle: 'solid',
+        borderRightColor: theme.palette.primary.main,
+        borderRightWidth: '0.2em',
         minHeight: '15vh',
-        boxShadow: '0 3px 3px -2px rgba(0, 0, 0, 0.4)',
+        [theme.breakpoints.down('md')]: {
+            minHeight: '10vh',
+        },
+        [theme.breakpoints.down('xs')]: {
+            minHeight: '14vh',
+        },
         padding: theme.spacing(1),
         marginTop: theme.spacing(3),
         transition: 'all 0.7s ease',
         '&:hover': {
-            borderLeftWidth: '0.6em',
+            borderRightWidth: '0.6em',
         },
         '&:hover main': {
             transform: 'scale(1.2)'
@@ -208,6 +223,12 @@ const useStyles = makeStyles(theme => ({
     thirdMainBackContainer: {
         width: '37%',
         minHeight: '15vh',
+        [theme.breakpoints.down('md')]: {
+            minHeight: '10vh',
+        },
+        [theme.breakpoints.down('xs')]: {
+            minHeight: '14vh',
+        },
         overflow: 'hidden'
     },
     thirdMainBack: {
@@ -215,6 +236,12 @@ const useStyles = makeStyles(theme => ({
         padding: '0%',
         margin: '0%',
         minHeight: '15vh',
+        [theme.breakpoints.down('md')]: {
+            minHeight: '10vh',
+        },
+        [theme.breakpoints.down('xs')]: {
+            minHeight: '14vh',
+        },
         width: '100%',
         backgroundRepeat: 'no-repeat',
         backgroundColor:
@@ -225,7 +252,71 @@ const useStyles = makeStyles(theme => ({
     },
     thirdMainInfo: {
         paddingLeft: theme.spacing(1),
+        transition: 'all 0.7s ease',
+    },
+    fourthMainRoot: {
+        width: '100%',
+        minHeight: '70vh',
+        [theme.breakpoints.down('md')]: {
+            minHeight: '45vh'
+        },
+        [theme.breakpoints.down('sm')]: {
+            minHeight: '40vh'
+        },
+        [theme.breakpoints.down('xs')]: {
+            minHeight: '60vh',
+
+        },
+        padding: theme.spacing(1),
+        marginTop: theme.spacing(3),
+        transition: 'all 0.7s ease',
+        '&:hover main': {
+            transform: 'scale(1.2)'
+        },
+        '&:hover span': {
+            color: theme.palette.primary.main
+        }
+    },
+    fourthMainBackContainer: {
+        minHeight: '70vh',
+        overflow: 'hidden',
+        [theme.breakpoints.down('md')]: {
+            minHeight: '45vh'
+        },
+        [theme.breakpoints.down('sm')]: {
+            minHeight: '40vh'
+        },
+        [theme.breakpoints.down('xs')]: {
+            minHeight: '60vh',
+
+        },
+    },
+    fourthMainBack: {
+        display: 'block',
+        padding: '0%',
+        margin: '0%',
+        minHeight: '70vh',
+        [theme.breakpoints.down('md')]: {
+            minHeight: '45vh'
+        },
+        [theme.breakpoints.down('sm')]: {
+            minHeight: '40vh'
+        },
+        [theme.breakpoints.down('xs')]: {
+            minHeight: '60vh',
+
+        },
+        width: '100%',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor:
+            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         transition: 'all 0.7s ease'
+    },
+    fourthMainInfo: {
+        padding: theme.spacing(4, 2),
+        transition: 'all 0.7s ease',
     },
     title: {
         textTransform: 'capitalize'
@@ -236,9 +327,12 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+var verticalGrid = [];
+
 
 export default function Main(props) {
     const classes = useStyles();
+    const theme = useTheme();
     const postList = props.category ? (
         props.variant === 'main' ? (
             props.category.posts.map(post => {
@@ -274,7 +368,10 @@ export default function Main(props) {
                     )
                 } else if ((props.category.posts.indexOf(post) === 1) ||
                     (props.category.posts.indexOf(post) === 2) ||
-                    (props.category.posts.indexOf(post) === 3)) {
+                    (props.category.posts.indexOf(post) === 3) ||
+                    (props.category.posts.indexOf(post) === 4) ||
+                    (props.category.posts.indexOf(post) === 5) ||
+                    (props.category.posts.indexOf(post) === 6)) {
                     return (
                         <Link href='' key={props.category.posts.indexOf(post)}>
                             <Grid item sm={6} md={4} xl={3} xs={6}>
@@ -285,7 +382,9 @@ export default function Main(props) {
                                         }}></main>
                                     </div>
                                     <div className={classes.secondMainInfo}>
-                                        <Typography variant="h6">{post.title}</Typography>
+                                        <Typography variant="button">{post.title}</Typography>
+                                        <br /><br />
+                                        <Typography variant="body2" >By {post.writer.first_name + " " + post.writer.last_name}</Typography>
                                     </div>
                                 </div>
 
@@ -294,52 +393,91 @@ export default function Main(props) {
 
                     )
 
-                } else {
-                    return (
-                        <Link href='' key={props.category.posts.indexOf(post)}>
-                            <Grid item sm={6} md={6} lg={3} xs={12}>
-                                <Grid className={classes.thirdMainRoot} container>
-                                    <Grid xs={5} className={classes.thirdMainBackContainer} item>
-                                        <main className={classes.thirdMainBack} style={{
-                                            backgroundImage: `url(${post.banner})`
-                                        }}></main>
-                                    </Grid>
-                                    <Grid xs={7} className={classes.thirdMainInfo} item>
-                                        <Typography variant="button">{post.title}</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Link>
-                    )
                 }
+                // else {
+                //     return (
+                //         <Link href='' key={props.category.posts.indexOf(post)}>
+                //             <Grid item sm={6} md={6} lg={3} xs={12}>
+                //                 <Grid className={classes.thirdMainRoot} container>
+                //                     <Grid xs={5} className={classes.thirdMainBackContainer} item>
+                //                         <main className={classes.thirdMainBack} style={{
+                //                             backgroundImage: `url(${post.banner})`
+                //                         }}></main>
+                //                     </Grid>
+                //                     <Grid xs={7} className={classes.thirdMainInfo} item>
+                //                         <Typography variant="button">{post.title}</Typography>
+                //                     </Grid>
+                //                 </Grid>
+                //             </Grid>
+                //         </Link>
+                //     )
+                // }
 
 
             })
         ) : (
                 props.category.posts.map(post => {
-                    return (
-                        <Link href='' key={props.category.posts.indexOf(post)}>
-                            <Grid item sm={6} md={6} lg={3} xs={12}>
-                                <Grid className={classes.thirdMainRoot} container>
-                                    <Grid xs={5} className={classes.thirdMainBackContainer} item>
-                                        <main className={classes.thirdMainBack} style={{
-                                            backgroundImage: `url(${post.banner})`
-                                        }}></main>
-                                    </Grid>
-                                    <Grid xs={7} className={classes.thirdMainInfo} item>
-                                        <Typography variant="button">{post.title}</Typography>
+                    if (props.category.posts.indexOf(post) === 0) {
+                        return (
+                            <Link href='' key={props.category.posts.indexOf(post)}>
+                                <Grid item xs={12} md={8}>
+                                    <Grid className={classes.fourthMainRoot} container>
+                                        <Grid xs={12} className={classes.fourthMainBackContainer} item>
+                                            <main className={classes.fourthMainBack} style={{
+                                                backgroundImage: `url(${post.banner})`
+                                            }}></main>
+                                        </Grid>
+                                        <Grid xs={12} className={classes.fourthMainInfo} item>
+                                            <Typography variant="body2">{post.category.name}</Typography><br />
+                                            <span><Typography variant="h4" className={classes.title}>{post.title}</Typography></span><br />
+                                            <Typography variant="body1">{post.description}</Typography><br /><br />
+                                            <Typography variant="body2" >By {post.writer.first_name + " " + post.writer.last_name}</Typography>
+
+                                        </Grid>
                                     </Grid>
                                 </Grid>
-                            </Grid>
-                        </Link>
-                    )
+                            </Link>
+                        )
+                    } else {
+                        if (props.category.posts.indexOf(post) === 6) {
+                            return (
+                                <Grid key={props.category.posts.indexOf(post)} item sm={12} md={4} xs={12}>
+                                    <Grid container>
+                                        {verticalGrid}
+                                    </Grid>
+                                </Grid>
+                            )
+                        } else if (props.category.posts.indexOf(post) < 6) {
+                            const item = (<Link href='' key={props.category.posts.indexOf(post)}>
+                                <Grid item sm={6} md={12} xs={12}>
+                                    <Grid className={classes.thirdMainRoot} container>
+                                        <Grid xs={5} className={classes.thirdMainBackContainer} item>
+                                            <main className={classes.thirdMainBack} style={{
+                                                backgroundImage: `url(${post.banner})`
+                                            }}></main>
+                                        </Grid>
+                                        <Grid xs={7} className={classes.thirdMainInfo} item>
+                                            <Typography variant="button">{post.title}</Typography><br /><br />
+                                            <Typography variant="body2" >By {post.writer.first_name + " " + post.writer.last_name}</Typography>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Link>)
+                            verticalGrid.push(item);
+                            return (
+                                <div key={props.category.posts.indexOf(post)}></div>
+                            )
+                        }
+
+                    }
+
                 })
             )
     ) : ([])
     return (
-        <div className={classes.root}>
-            <Typography className={classes.categoryTitle} variant='h4'>{IconChooser(props.category.name)}{" " + props.category.name}</Typography>
-            <Grid container spacing={2}>
+        <div className={classes.root} style={(props.category.main === true) ? ({ backgroundColor: theme.palette.grey[200] }) : ({ backgroundColor: 'white' })}>
+            <Typography className={classes.categoryTitle} variant='h5'>{IconChooser(props.category.name)}{" " + props.category.name}</Typography>
+            <Grid container spacing={3}>
                 {postList}
             </Grid>
 
